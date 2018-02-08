@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+            .cssHeaderRow {
+                background-color: #9e9e9e;
+            }
+            .cssTableRow {
+                background-color: #F0F1F2;
+            }
+            .cssOddTableRow {
+                background-color: #F0F1F2;
+            }
+            .cssSelectedTableRow {
+                font-size: 20px;
+                font-weight:bold;
+            }
+            .cssHoverTableRow {
+                background: #ccc;
+            }
+            .cssHeaderCell {
+                color: #FFFFFF;
+                font-size: 16px;
+                padding: 10px !important;
+                border: solid 1px #FFFFFF;
+            }
+            .cssTableCell {
+                font-size: 16px;
+                padding: 10px !important;
+                border: solid 1px #FFFFFF;
+            }
+            .cssRowNumberCell {
+                text-align: center;
+            }
+  </style>
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load("current", {packages:['table', 'gauge', 'corechart']});
+    google.charts.setOnLoadCallback(drawSort);
+    function drawSort() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Факультет');
+      data.addColumn('number', 'тыс.руб.');
+      var qdata = ' [["33 ИММиТ", 465478], ["36 ИПМиМ", 315237], ["34 ИФНиТ", 213666], ["03 ОНТИ", 158298], ["07 Наука", 145412], ["35 ИКНТ", 74632], ["32 ИЭиТС", 63052], ["43 ИППТ", 54753], ["31 ИСИ", 37431], ["37 ИПМЭиТ", 26979], ["59 ЦЭОРиДТ", 15038], ["01 Ректор", 10977], ["38 ГИ", 3226]] ';
+      var adata = JSON.parse(qdata);
+      data.addRows(adata);
+                var cssClassNames = {
+                    'headerRow': 'cssHeaderRow',
+                    'tableRow': 'cssTableRow',
+                    'oddTableRow': 'cssOddTableRow',
+                    'selectedTableRow': 'cssSelectedTableRow',
+                    'hoverTableRow': 'cssHoverTableRow',
+                    'headerCell': 'cssHeaderCell',
+                    'tableCell': 'cssTableCell',
+                    'rowNumberCell': 'cssRowNumberCell'
+                };
+                var options = {
+                    showRowNumber: true,
+                    cssClassNames: cssClassNames
+                };
+//      var view = new google.visualization.DataView(data);
+      var table = new google.visualization.Table(document.getElementById('table_sort_div'));
+//      table.draw(view, {width: '100%', height: '100%'});
+      table.draw(data, options);
+      google.visualization.events.addListener(table, 'sort',
+        function(event) {
+          data.sort([{column: event.column, desc: !event.ascending}]);
+      });
+    }
+  </script>
+</head>
+<body>
+<div class="w3-container">
+  <div class="w3-bar w3-border w3-card-4 w3-light-grey">
+    <a class="w3-bar-item w3-button" href="./index.html">Приход средств</a>
+    <span class="w3-bar-item" style="float: left;"><b>Таблица</b></span>
+    <a class="w3-bar-item w3-button" href="./bar.html">Столбцы</a>
+    <a class="w3-bar-item w3-button" href="./pie.html">Сектора</a>
+  </div>
+  <br>
+  <div id="table_sort_div" class="w3-container">
+  </div>
+</div>
+<br>
+<footer class="w3-container w3-grey w3-center">
+<p style="color: white;">Tema 2018</p>
+</footer>
+</body>
+</html>
+
